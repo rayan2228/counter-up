@@ -1,0 +1,151 @@
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #111827;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.container {
+  text-align: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 90%;
+  height: 100px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  resize: none;
+  margin-bottom: 20px;
+}
+
+textarea:focus {
+  border-color: #374151;
+  outline: none;
+}
+
+.controls {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+label {
+  font-size: 16px;
+}
+
+input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #374151;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #111827;
+}
+
+.result {
+  margin-top: 20px;
+}
+
+.result p {
+  font-size: 18px;
+  margin: 0;
+}
+
+.result h2 {
+  font-size: 24px;
+  color: #374151;
+  margin-top: 10px;
+  border: 2px dashed #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  textarea {
+    height: 80px;
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  input[type="number"] {
+    width: 50px;
+    font-size: 14px;
+  }
+
+  .result h2 {
+    font-size: 20px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 18px;
+  }
+
+  textarea {
+    height: 70px;
+    font-size: 12px;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  input[type="number"] {
+    width: 40px;
+    font-size: 12px;
+  }
+
+  .result h2 {
+    font-size: 16px;
+    padding: 6px;
+  }
+}

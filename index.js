@@ -1,44 +1,63 @@
-    ;(() => {
-        const endDateElm = document.querySelector(".dateInput");
-        let endDateElmValue = new Date(JSON.parse(localStorage.getItem("endDate"))) || new Date();
-        endDateElm.value = endDateElmValue.toISOString().slice(0, 10);
-        const countDownValueElm = Array.from(document.querySelectorAll(".countDownValue"));
-        let countDownClear;
-        endDateElm.addEventListener("change", () => {
-            endDateElmValue = new Date(endDateElm.value);
-            localStorage.setItem("endDate", JSON.stringify(endDateElmValue));
-            clearInterval(countDownClear);
-            countDownClear = setInterval(countDown, 1000);
-        })
-        function countDown() {
-            const startDate = new Date();
-            const dateDiff = (endDateElmValue - startDate) / 1000;
-            if (dateDiff > 0) {
-                const days = Math.floor(dateDiff / 3600 / 24);
-                const hours = Math.floor((dateDiff / 3600) % 24);
-                const minutes = Math.floor((dateDiff / 60) % 60);
-                const seconds = Math.floor(dateDiff % 60);
-
-                countDownValueElm.map((item, index) => {
-                    switch (index) {
-                        case 0:
-                            item.textContent = days;
-                            break;
-                        case 1:
-                            item.textContent = hours;
-                            break;
-                        case 2:
-                            item.textContent = minutes;
-                            break;
-                        case 3:
-                            item.textContent = seconds;
-                            break;
-                    }
-                });
-            } else {
-                clearInterval(countDownClear);
-                countDownValueElm.map(item => item.textContent = "0");
-            }
+(()=>{
+    const nameInputElm = document.getElementById('nameInput');
+    const pickButtonElm = document.getElementById('pickButton');
+    const pickCount = document.getElementById('pickCount');
+    const resultElm = document.getElementById('result');
+    const selectedNameElm = document.getElementById('selectedNames');
+    
+    let names = nameInputElm.value
+    let count = 1
+    nameInputElm.addEventListener('input', (e) => {
+        names = e.target.value
+    });
+    pickCount.addEventListener('input', (e) => {
+        if (e.target.value < 1) {
+            e.target.value = 1
         }
-        countDownClear = setInterval(countDown, 1000);
-    })()
+        count = e.target.value
+    });
+    
+    pickButtonElm.addEventListener('click', () => {
+        if (names === '') {
+            alert('Please enter names')
+            return
+        }
+        const nameArray = names.split(',')
+        if (nameArray.length < 2) {
+            alert('Please enter more than 1 name')
+            return
+        }
+        const selectedName = pickRandomName(nameArray, count);
+        displayResult(selectedName);
+        updateNameInput(nameArray);
+    })
+    
+    function pickRandomName(nameArray, count) {
+        if (count === 1) {
+            const randomIndex = Math.floor(Math.random() * nameArray.length);
+            const selectedName = nameArray[randomIndex];
+            nameArray.splice(randomIndex, 1);        
+            return selectedName ;
+        }
+        const selectedNames = [];
+        for (let i = 0; i < count; i++) {
+            const randomIndex = Math.floor(Math.random() * nameArray.length);
+            if (selectedNames.includes(nameArray[randomIndex])) {
+                i--;
+                continue;
+            }
+            selectedNames.push(nameArray[randomIndex]);
+            nameArray.splice(randomIndex, 1);
+        }
+        return selectedNames.join(',');
+    }
+    
+    function displayResult(selectedName) {
+        selectedNameElm.textContent = selectedName;
+    }
+    
+    function updateNameInput(nameArray) {
+        nameInputElm.value = nameArray.join(', ');
+        names = nameArray.join(', '); 
+    }
+})()
